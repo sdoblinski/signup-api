@@ -1,0 +1,38 @@
+{
+  "name": "signup-api",
+  "version": "1.0.0",
+  "description": "Signup signin API",
+  "main": "app.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sdoblinski/signup-api.git"
+  },
+  "author": "Simei Doblinski",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sdoblinski/signup-api/issues"
+  },
+  "homepage": "https://github.com/sdoblinski/signup-api#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "express-jwt": "^3.4.0",
+    "helmet": "^2.1.1",
+    "mongoose": "^4.5.7",
+    "node-uuid": "^1.4.7",
+    "sha1": "^1.1.1",
+    "validator": "^5.5.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-as-promised": "^5.3.0",
+    "chai-http": "^3.0.0",
+    "express-mocks-http": "0.0.11",
+    "gulp": "^3.9.1",
+    "gulp-jshint": "^2.0.1",
+    "jshint-stylish": "^2.2.0"
+  }
+}
