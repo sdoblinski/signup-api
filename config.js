@@ -1,10 +1,10 @@
 "use strict";
 
-var config = {};
+const config = {};
 
 config.mongoURI = {
-	development: 'mongodb://localhost:27017/signup-dev',
-	test: 'mongodb://localhost:27017/signup-test'
+	development: "mongodb://localhost:27017/signup-dev",
+	test: "mongodb://localhost:27017/signup-test"
 };
 
 config.jwt = {

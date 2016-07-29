@@ -1,30 +1,30 @@
-process.env.NODE_ENV = 'test';
+"use strict";
 
-var chai = require("chai"),
+process.env.NODE_ENV = "test";
+
+const chai = require("chai"),
 	should = chai.should();
+const chaiHttp = require("chai-http");
+const httpMocks = require("express-mocks-http");
+const chaiAsPromised = require("chai-as-promised");
+const server = require("../app");
 
-var chaiHttp = require("chai-http");
-var httpMocks = require("express-mocks-http");
-var chaiAsPromised = require("chai-as-promised");
-var server = require("../app");
+const User = require("../models/user");
+const signup = require("../services/user/signup");
+const signin = require("../services/user/signin");
+const getUuid = require("../services/user/getuuid");
 
-var user = require("../models/user"),
-	User = user.User,
-	signup = user.signup,
-	signin = user.signin,
-	getUuid = user.getUuid;
-
-var signupData = {
+const signupData = {
 	name: "Simei Doblinski", 
 	password: "password123", 
 	email: "simeidoblinski@gmail.com",
 	phones: ["11999999999","11555555555"]
 };
-var signinData = {
+const signinData = {
 	email: "simeidoblinski@gmail.com", 
 	password: "password123"
 };
-var token,
+let token,
 	uuid,
 	req,
 	res,
@@ -47,12 +47,12 @@ describe("Testes unitários", function() {
 		done();
 	});
 
-	it('Método signup: deve resolver requisição de acordo com modelo', function(){
+	it("Método signup: deve resolver requisição de acordo com modelo", function(){
 		req.body = signupData;
 		return signup(req, res).then(u => signupUser = u).should.be.fulfilled;
 	});
 
-	it('Método signup: deve rejeitar e-mail já existente', function(){
+	it("Método signup: deve rejeitar e-mail já existente", function(){
 		req.body = signupData;
 		return signup(req, res).then().should.be.rejectedWith("E-mail já existente");
 	});
@@ -71,16 +71,16 @@ describe("Testes unitários", function() {
 		done();
 	});
 
-	it('Método signin: deve resolver requisição de acordo com modelo', function(){
+	it("Método signin: deve resolver requisição de acordo com modelo", function(){
 		req.body = signinData;
 		return signin(req, res).then(u => signinUser = u).should.be.fulfilled;
 	});
 
-	it('Método signin: deve rejeitar requisição diferente do modelo', function(){
+	it("Método signin: deve rejeitar requisição diferente do modelo", function(){
 		return signin(req, res).then().should.be.rejectedWith("Usuário e/ou senha inválidos");
 	});
 
-	it('Método signin: deve reportar erro em falha de autenticação', function(){
+	it("Método signin: deve reportar erro em falha de autenticação", function(){
 		req.body = {
 			email: "simeidoblinski@gmail.com", 
 			password: "senhaErrada"
@@ -102,12 +102,12 @@ describe("Testes unitários", function() {
 		done();
 	});
 
-	it('Método getUuid: deve resolver requisição de acordo com modelo', function(){
+	it("Método getUuid: deve resolver requisição de acordo com modelo", function(){
 		req.params = signinUser;
 		return getUuid(req, res).then(u => getUuidUser = u).should.be.fulfilled;
 	});
 
-	it('Método getUuid: deve rejeitar requisição diferente do modelo', function(){
+	it("Método getUuid: deve rejeitar requisição diferente do modelo", function(){
 		return getUuid(req, res).then().should.be.rejectedWith("Usuário não encontrado");
 	});
 
@@ -129,7 +129,7 @@ describe("Testes unitários", function() {
 
 describe("Testes de integração", function() {
 	before(function(done){
-		user.User.collection.drop();
+		User.collection.drop();
 		done();
 	});
 

@@ -1,22 +1,24 @@
 "use strict";
 
-var express = require('express');
-var app = require('../app.js');
-var router = express.Router();
-var user = require('../models/user');
+const express = require("express");
+const app = require("../app.js");
+const router = express.Router();
+const signup = require("../services/user/signup");
+const signin = require("../services/user/signin");
+const getUuid = require("../services/user/getuuid");
 
 router.post("/signup", function(req, res, next){
-	user.signup(req, res)
+	signup(req, res)
 	.then(u => res.status(200).json(u))
 	.catch(e => next(e));
 });
 router.post("/signin", function(req, res, next){
-	user.signin(req, res)
+	signin(req, res)
 	.then(u => res.status(200).json(u))
 	.catch(e => next(e));
 });
 router.get("/:uuid", function(req, res, next){
-	user.getUuid(req, res)
+	getUuid(req, res)
 	.then(u => res.status(200).json(u))
 	.catch(e => next(e));
 });
